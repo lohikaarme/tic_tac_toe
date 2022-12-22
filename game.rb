@@ -8,12 +8,11 @@ class Game
   def legal_move(input)
     location_mapper(input)
     @legal = true if @board[@row][@column][:legal_move] == true
-    if @legal
-    else
-      puts "\n---------------------------------------------"
-      puts "| Position #{input} is an illegal move, try again! |"
-      puts '---------------------------------------------'
-    end
+    return if @legal
+
+    puts "\n---------------------------------------------"
+    puts "| Position #{input} is an illegal move, try again! |"
+    puts '---------------------------------------------'
   end
 
   def update_board(player)

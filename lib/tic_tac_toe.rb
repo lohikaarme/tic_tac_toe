@@ -2,7 +2,7 @@
 
 # tic_tac_toe exercise to create a 2 player game playable in terminal
 
-require 'pry-byebug'
+# require 'pry-byebug'
 require_relative 'game'
 require_relative 'player'
 require_relative 'render'

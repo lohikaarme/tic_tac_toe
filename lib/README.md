@@ -1,5 +1,5 @@
 # Tic Tac Toe Assignment
-Develope a 2 player console based Tic Tac Toe game
+Develop a 2 player console based Tic Tac Toe game
 
 ## Utilized
 Objects, Multiple classes split into individual files, public/private methods and attributes, 

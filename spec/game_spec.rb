@@ -19,10 +19,10 @@ describe Game do
     context 'when an illegal move is made' do
       before do
         legal_game.instance_variable_set(:@board, Array.new(3) { Array.new(3) { { legal_move: false } } })
-        allow(legal_game).to receive(:puts)
       end
 
       it 'does not update @legal if the move was illegal' do
+        expect(legal_game).to receive(:puts).exactly(3).times
         expect { legal_game.legal_move(1) }.not_to(change { legal_game.instance_variable_get(:@legal) })
       end
     end

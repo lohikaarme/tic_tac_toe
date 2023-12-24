@@ -52,4 +52,77 @@ describe Game do
       end
     end
   end
+
+  describe '#game_checker' do
+    let(:p0) { { legal_move: true, name: 'Player 0' } }
+    let(:p1) { { legal_move: false, name: 'Player 1' } }
+
+    subject(:ending_game) { described_class.new(p0) }
+
+    context 'board is populated with player objects' do
+
+      before do
+        ending_game.instance_variable_set(:@board, Array.new(3) { Array.new(3) {  p1  } })
+      end
+
+      it 'prints win state' do
+        expect { ending_game.game_checker(p1) }.to output(/Thank you for playing!/).to_stdout
+      end
+    end
+
+    context 'board is populated with a row of player objects' do
+      before do
+        ending_game.instance_variable_set(:@board, [
+          [p0, p0, p0],
+          [p1, p1, p1],
+          [p0, p0, p0]
+        ])
+       end
+
+      it 'prints win state' do
+        expect { ending_game.game_checker(p1) }.to output(/Thank you for playing!/).to_stdout
+      end
+    end
+
+    context 'board is populated with a column of player objects' do
+      before do
+        ending_game.instance_variable_set(:@board, [
+          [p1, p0, p0],
+          [p1, p0, p0],
+          [p1, p0, p0]
+        ])
+       end
+
+      it 'prints win state' do
+        expect { ending_game.game_checker(p1) }.to output(/Thank you for playing!/).to_stdout
+      end
+    end
+
+    context 'board is populated with a diagonal of player objects' do
+      before do
+        ending_game.instance_variable_set(:@board, [
+          [p1, p0, p0],
+          [p0, p1, p0],
+          [p0, p0, p1]
+        ])
+       end
+
+      it 'prints win state' do
+        expect { ending_game.game_checker(p1) }.to output(/Thank you for playing!/).to_stdout
+      end
+    end
+
+    context 'the game is a stalemate' do
+
+      before(:each) do
+        ending_game.instance_variable_set(:@board, Array.new(3) { Array.new(3) { p0 } })
+        ending_game.legal_move(1) # Call legal_move to set @row and @column
+      end
+
+      it 'prints stalemate state' do
+        9.times { ending_game.update_board(p0) } # Call update_board to increment @turn_num
+        expect { ending_game.game_checker(p1) }.to output(/Stalemate!/).to_stdout
+      end
+    end
+  end
 end
